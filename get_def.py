@@ -1,12 +1,27 @@
+# -*- coding: utf-8 -*-
+# ------------------------------------------------------------------------------
+# Name:         get_def.py
+# Purpose:      Retrieve definition from data/littre.txt and print it to the
+#               terminal with a butch of nice cowsay's frogs.
+#
+# Authors:      Antoine Le Doeuff
+#
+# Copyright:    x
+# License:      x
+# ------------------------------------------------------------------------------
+
 import os
 import re
-
 import random
 import subprocess
 
+# Set current dir
 dir = os.path.dirname(os.path.abspath(__name__))
+
+# Set littre dictionnary path
 file_path = f'{dir}/data/littre.txt'  # Replace with the actual file path
 
+# Open it
 with open(file_path, 'r') as file:
     littre = file.read()
 
