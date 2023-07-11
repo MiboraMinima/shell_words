@@ -2,7 +2,7 @@
 # ------------------------------------------------------------------------------
 # Name:         get_def.py
 # Purpose:      Retrieve definition from data/littre.txt and print it to the
-#               terminal with a butch of nice cowsay's frogs.
+#               terminal at start with a butch of nice cowsay's frogs.
 #
 # Authors:      Antoine Le Doeuff
 #
@@ -48,19 +48,16 @@ with open(f'{dir}/result/def.txt', 'w') as def_res:
 
 with open(f'{dir}/show_def.sh', 'w') as def_res:
     def_res.write(
-        f"""
-#!/bin/bash
-        
-echo "\n" >> '{dir}/result/def.txt' 
-        
-head -n 1 '{dir}/result/def.txt' | cowsay -f bud-frogs | lolcat
- 
-cat '{dir}/result/def.txt'
-        """
+        f"#!/bin/bash \n"
+        f"echo -e '\n' >> '{dir}/result/def.txt' \n"
+        f"head -n 1 '{dir}/result/def.txt' | cowsay -f bud-frogs | lolcat \n"
+        f"cat '{dir}/result/def.txt'"
     )
 
+# Add execution to the file
 exe = f"chmod +x {dir}/show_def.sh"
 subprocess.run(exe, shell=True)
 
+# Run the command
 run = f"bash {dir}/show_def.sh"
 subprocess.run(run, shell=True)
