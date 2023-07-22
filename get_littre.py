@@ -44,6 +44,8 @@ def get_french_writers(dir):
 
         rand_index = random.randint(0, len(fr_writer) - 1)  # Subtract 1 to avoid index out of range error
         author = fr_writer.loc[rand_index, 'author']
+        birth = fr_writer.loc[rand_index, 'birth']
+        death = fr_writer.loc[rand_index, 'death']
 
         if author in failed_authors:
             continue
@@ -90,12 +92,14 @@ def get_french_writers(dir):
             break
 
     if quote:
-        # Write it
+        if not death:
+            death = " "
+
         with open(f'{dir}/result/def.txt', 'w') as def_res:
             def_res.write(
                 f"{quote[0]}\n"
                 f"\n"
-                f"{author}"
+                f"{author} ({birth} - {death})"
             )
 
 
