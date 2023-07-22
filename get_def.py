@@ -17,7 +17,9 @@ from get_littre import *
 # Set current dir
 dir = os.path.dirname(os.path.abspath(__name__))
 
-luck = random.randint(1, 5)
+# Randomly choose in a cowsay list of ascii
+ascii_list = ['bunny', 'duck', 'bud-frogs', 'tux']
+ascii = random.choice(ascii_list)
 
 if luck <= 2:
     get_french_writers(dir)
