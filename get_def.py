@@ -40,7 +40,6 @@ elif 2 < luck <= 5:
             f"echo -e '\n' >> '{dir}/result/def.txt' \n"
             f"cat '{dir}/result/def.txt' | cowsay -f {ascii} | lolcat \n"
         )
-
 else:
     find_littre(dir)
 
@@ -48,14 +47,13 @@ else:
         def_res.write(
             f"#!/bin/bash \n"
             f"echo -e '\n' >> '{dir}/result/def.txt' \n"
-            f"head -n 1 '{dir}/result/def.txt' | cowsay -f bud-frogs | lolcat \n"
+            f"head -n 1 '{dir}/result/def.txt' | cowsay -f {ascii} | lolcat \n"
             f"cat '{dir}/result/def.txt'"
         )
 
 # ==========================================
-# EDIT BASH
+# RUN BASH
 # ==========================================
-
 
 # Add execution to the file
 exe = f"chmod +x {dir}/show_def.sh"
