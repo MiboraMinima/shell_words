@@ -11,48 +11,39 @@
 # ------------------------------------------------------------------------------
 
 import os
-import re
-import random
 import subprocess
+from get_littre import *
 
 # Set current dir
 dir = os.path.dirname(os.path.abspath(__name__))
 
-# Set littre dictionnary path
-file_path = f'{dir}/data/littre.txt'  # Replace with the actual file path
+luck = random.randint(1, 5)
 
-# Open it
-with open(file_path, 'r') as file:
-    littre = file.read()
+if luck <= 2:
+    get_french_writers(dir)
 
-# ==========================================
-# FIND RANDOM DEF
-# ==========================================
+    with open(f'{dir}/show_def.sh', 'w') as def_res:
+        def_res.write(
+            f"#!/bin/bash \n"
+            f"echo -e '\n' >> '{dir}/result/def.txt' \n"
+            f"cat '{dir}/result/def.txt' | cowsay -f bud-frogs | lolcat \n"
+        )
 
-all_def = r'_____\n\n(.*?)\n\n_____'
-match_all = re.findall(all_def, littre, re.DOTALL)
+else:
+    find_littre(dir)
 
-def_num = len(match_all)
-rd_def = random.randint(1, def_num)
-
-current_def = match_all[rd_def]
-
-# Write the file
-with open(f'{dir}/result/def.txt', 'w') as def_res:
-    def_res.write(current_def)
+    with open(f'{dir}/show_def.sh', 'w') as def_res:
+        def_res.write(
+            f"#!/bin/bash \n"
+            f"echo -e '\n' >> '{dir}/result/def.txt' \n"
+            f"head -n 1 '{dir}/result/def.txt' | cowsay -f bud-frogs | lolcat \n"
+            f"cat '{dir}/result/def.txt'"
+        )
 
 # ==========================================
 # EDIT BASH
 # ==========================================
-#  head -n 1 '{dir}/result/def.txt' | figlet -f smslant | lolcat
 
-with open(f'{dir}/show_def.sh', 'w') as def_res:
-    def_res.write(
-        f"#!/bin/bash \n"
-        f"echo -e '\n' >> '{dir}/result/def.txt' \n"
-        f"head -n 1 '{dir}/result/def.txt' | cowsay -f bud-frogs | lolcat \n"
-        f"cat '{dir}/result/def.txt'"
-    )
 
 # Add execution to the file
 exe = f"chmod +x {dir}/show_def.sh"
