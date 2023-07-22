@@ -21,6 +21,7 @@ dir = os.path.dirname(os.path.abspath(__name__))
 ascii_list = ['bunny', 'duck', 'bud-frogs', 'tux']
 ascii = random.choice(ascii_list)
 
+luck = random.randint(1, 10)
 if luck <= 2:
     get_french_writers(dir)
 
@@ -28,7 +29,16 @@ if luck <= 2:
         def_res.write(
             f"#!/bin/bash \n"
             f"echo -e '\n' >> '{dir}/result/def.txt' \n"
-            f"cat '{dir}/result/def.txt' | cowsay -f bud-frogs | lolcat \n"
+            f"cat '{dir}/result/def.txt' | cowsay -f {ascii} | lolcat \n"
+        )
+elif 2 < luck <= 5:
+    get_philosophers(dir)
+
+    with open(f'{dir}/show_def.sh', 'w') as def_res:
+        def_res.write(
+            f"#!/bin/bash \n"
+            f"echo -e '\n' >> '{dir}/result/def.txt' \n"
+            f"cat '{dir}/result/def.txt' | cowsay -f {ascii} | lolcat \n"
         )
 
 else:
