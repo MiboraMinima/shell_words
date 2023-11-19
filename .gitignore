@@ -1,8 +1,14 @@
 .idea/
 __pycache__/
-data/
 
-.gitignore
+data/littre.txt
+
+data/philosophers.csv
+data/french_writers.csv
+
+data/wiki_failed_philo.txt
+data/wiki_failed_fr_writers.txt
+
 result/def.txt
 result/res_def.txt
 result/__pycache__/
