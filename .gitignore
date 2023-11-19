@@ -1,3 +1,9 @@
+.idea/
+__pycache__/
+data/
+
+.gitignore
 result/def.txt
 result/res_def.txt
+result/__pycache__/
 show_def.sh

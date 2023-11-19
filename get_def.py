@@ -12,7 +12,7 @@
 
 import os
 import subprocess
-from get_littre import *
+from fun import *
 
 # Set current dir
 dir = os.path.dirname(os.path.abspath(__name__))
@@ -21,19 +21,17 @@ dir = os.path.dirname(os.path.abspath(__name__))
 ascii_list = ['bunny', 'duck', 'bud-frogs', 'tux']
 ascii = random.choice(ascii_list)
 
-luck = random.randint(1, 10)
-if luck <= 2:
+luck = random.randint(1, 9)
+if luck <= 3:
     get_french_writers(dir)
-
     with open(f'{dir}/show_def.sh', 'w') as def_res:
         def_res.write(
             f"#!/bin/bash \n"
             f"echo -e '\n' >> '{dir}/result/def.txt' \n"
             f"cat '{dir}/result/def.txt' | cowsay -f {ascii} | lolcat \n"
         )
-elif 2 < luck <= 5:
+elif 3 < luck <= 6:
     get_philosophers(dir)
-
     with open(f'{dir}/show_def.sh', 'w') as def_res:
         def_res.write(
             f"#!/bin/bash \n"
@@ -42,7 +40,6 @@ elif 2 < luck <= 5:
         )
 else:
     find_littre(dir)
-
     with open(f'{dir}/show_def.sh', 'w') as def_res:
         def_res.write(
             f"#!/bin/bash \n"
