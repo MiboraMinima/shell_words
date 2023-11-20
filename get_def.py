@@ -11,51 +11,21 @@
 # ------------------------------------------------------------------------------
 
 import os
-import subprocess
 from fun import *
 
-# Set current dir
-dir = os.path.dirname(os.path.abspath(__name__))
+if __name__ == "__main__":
+    # Set current dir
+    current_dir = os.path.dirname(os.path.abspath(__name__))
 
-# Randomly choose in a cowsay list of ascii
-ascii_list = ['bunny', 'duck', 'bud-frogs', 'tux']
-ascii = random.choice(ascii_list)
+    # Randomly choose in a cowsay list of ascii
+    ascii_list = ['bunny', 'duck', 'bud-frogs', 'tux']
+    ascii = random.choice(ascii_list)
 
-luck = random.randint(1, 9)
-if luck <= 3:
-    get_french_writers(dir)
-    with open(f'{dir}/show_def.sh', 'w') as def_res:
-        def_res.write(
-            f"#!/bin/bash \n"
-            f"echo -e '\n' >> '{dir}/result/def.txt' \n"
-            f"cat '{dir}/result/def.txt' | cowsay -f {ascii} | lolcat \n"
-        )
-elif 3 < luck <= 6:
-    get_philosophers(dir)
-    with open(f'{dir}/show_def.sh', 'w') as def_res:
-        def_res.write(
-            f"#!/bin/bash \n"
-            f"echo -e '\n' >> '{dir}/result/def.txt' \n"
-            f"cat '{dir}/result/def.txt' | cowsay -f {ascii} | lolcat \n"
-        )
-else:
-    find_littre(dir)
-    with open(f'{dir}/show_def.sh', 'w') as def_res:
-        def_res.write(
-            f"#!/bin/bash \n"
-            f"echo -e '\n' >> '{dir}/result/def.txt' \n"
-            f"head -n 1 '{dir}/result/def.txt' | cowsay -f {ascii} | lolcat \n"
-            f"cat '{dir}/result/def.txt'"
-        )
+    # Create an instance of DefinitionGenerator
+    definition_generator = DefinitionGenerator(current_dir)
 
-# ==========================================
-# RUN BASH
-# ==========================================
+    # Generate definition script
+    definition_generator.generate_definition_script(ascii)
 
-# Add execution to the file
-exe = f"chmod +x {dir}/show_def.sh"
-subprocess.run(exe, shell=True)
-
-# Run the command
-run = f"bash {dir}/show_def.sh"
-subprocess.run(run, shell=True)
+    # Execute the script
+    definition_generator.execute_script()
