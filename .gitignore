@@ -10,7 +10,5 @@ data/wiki_failed_philo.txt
 data/wiki_failed_fr_writers.txt
 
 # Exclude temp files
-result/def.txt
-result/res_def.txt
-result/__pycache__/
+result/*
 show_def.sh
