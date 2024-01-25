@@ -1,5 +1,7 @@
 # Shell's words
 
+![](fig/shell_words_vid.gif)
+
 Randomly display a definition from the French dictionary "Le Littre" when opening a new terminal.
 
 ## Available authors

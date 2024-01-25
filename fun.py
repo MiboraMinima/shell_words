@@ -4,6 +4,8 @@ import pandas as pd
 import wikiquote
 import subprocess
 
+# FIXME: inplace of generating find, return strings
+
 class DefinitionGenerator:
     def __init__(self, dir):
         self.dir = dir
@@ -32,16 +34,23 @@ class DefinitionGenerator:
 
     # FIXME: death consider as float
     def get_wikiquote(self, scope):
-        data = pd.read_csv(f'data/{scope}_catch.csv')
+        data = pd.read_csv(
+            f'data/{scope}_catch.csv', 
+            dtype={
+               'author': 'string',
+               'birth': 'string',
+               'death': 'string',
+       })
 
-        rand_index = random.randint(0, len(data) - 1)  # Subtract 1 to avoid index out of range error
+        # Subtract 1 to avoid index out of range error
+        rand_index = random.randint(0, len(data) - 1)  
 
         author = data.loc[rand_index, 'author']
         if scope == "french_writers":
-            birth = str(data.loc[rand_index, 'birth'])
-            death = str(data.loc[rand_index, 'death'])
+            birth = data.loc[rand_index, 'birth']
+            death = data.loc[rand_index, 'death']
         else:
-            birth_death = str(data.loc[rand_index, 'birth_death']) 
+            birth_death = data.loc[rand_index, 'birth_death']
 
         quote_list = wikiquote.quotes(author, lang='fr')
         if not quote_list:
@@ -62,7 +71,7 @@ class DefinitionGenerator:
                 def_res.write(
                     f"{quote}\n"
                     f"\n"
-                    f"{author} ({birth} - {str(death)})"
+                    f"{author} ({birth} - {death})"
                 )
             else:
                 def_res.write(
