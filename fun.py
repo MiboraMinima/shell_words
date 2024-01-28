@@ -3,6 +3,7 @@ import random
 import pandas as pd
 import wikiquote
 import subprocess
+from urllib import request
 
 # FIXME: inplace of generating find, return strings
 
@@ -34,6 +35,7 @@ class DefinitionGenerator:
 
     # FIXME: death consider as float
     def get_wikiquote(self, scope):
+        # Load data
         data = pd.read_csv(
             f'data/{scope}_catch.csv', 
             dtype={
@@ -80,15 +82,20 @@ class DefinitionGenerator:
                     f"{author} {birth_death}"
                 )
 
-    def generate_definition_script(self, ascii):
-        # Based on luck, generate the definition script
-        luck = random.randint(1, 9)
-        if luck <= 3:
-            self.get_wikiquote(scope="french_writers")
-            get_type = "wiki"
-        elif 3 < luck <= 6:
-            self.get_wikiquote(scope="philo")
-            get_type = "wiki"
+    def generate_definition_script(self, ascii, con):
+        # Based on luck and if there is a connexion, generate the definition
+        # script
+        if con:
+            luck = random.randint(1, 9)
+            if luck <= 3:
+                self.get_wikiquote(scope="french_writers")
+                get_type = "wiki"
+            elif 3 < luck <= 6:
+                self.get_wikiquote(scope="philo")
+                get_type = "wiki"
+            else:
+                self.find_littre()
+                get_type = "littre"
         else:
             self.find_littre()
             get_type = "littre"
@@ -116,4 +123,11 @@ class DefinitionGenerator:
         # Run the command
         run = f"bash {self.dir}/show_def.sh"
         subprocess.run(run, shell=True)
+
+def test_connection():
+    try:
+        request.urlopen('https://google.com', timeout=1)
+        return True
+    except request.URLError as err: 
+        return False
 

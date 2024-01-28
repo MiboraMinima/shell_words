@@ -21,11 +21,14 @@ if __name__ == "__main__":
     ascii_list = ['bunny', 'duck', 'bud-frogs', 'tux']
     ascii = random.choice(ascii_list)
 
+    # Test internet
+    con = test_connection()
+
     # Create an instance of DefinitionGenerator
     definition_generator = DefinitionGenerator(current_dir)
 
     # Generate definition script
-    definition_generator.generate_definition_script(ascii)
+    definition_generator.generate_definition_script(ascii, con)
 
     # Execute the script
     definition_generator.execute_script()
