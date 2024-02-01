@@ -5,8 +5,7 @@ import wikiquote
 import subprocess
 from urllib import request
 
-# FIXME: inplace of generating find, return strings
-
+# FIXME: inplace of generating files, return strings
 class DefinitionGenerator:
     def __init__(self, dir):
         self.dir = dir
@@ -33,7 +32,6 @@ class DefinitionGenerator:
         with open(f'{self.dir}/result/def.txt', 'w') as def_res:
             def_res.write(current_def)
 
-    # FIXME: death consider as float
     def get_wikiquote(self, scope):
         # Load data
         data = pd.read_csv(
@@ -56,7 +54,7 @@ class DefinitionGenerator:
 
         quote_list = wikiquote.quotes(author, lang='fr')
         if not quote_list:
-            quote_list = wikiquote.quotes(author, lang='eng')
+            quote_list = wikiquote.quotes(author, lang='en')
 
         i = random.randint(0,len(quote_list) - 1)
         quote = quote_list[i]
@@ -123,6 +121,7 @@ class DefinitionGenerator:
         # Run the command
         run = f"bash {self.dir}/show_def.sh"
         subprocess.run(run, shell=True)
+
 
 def test_connection():
     try:
