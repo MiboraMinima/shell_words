@@ -1,17 +1,18 @@
+---
+lang: en
+---
+
 # Shell's words
 
 ![](fig/shell_words_vid.gif)
 
-Randomly display a definition from the French dictionary "Le Littre" when opening a new terminal.
+Randomly display a definition from the French dictionary "Le Littre" or a
+citation using the [wikiquote](https://github.com/federicotdn/wikiquote) module
+when opening a new terminal.
 
 ## Available authors
 
-Littre dictionnary
-
 - French writers
-- Philosophers (all nations)
+- Philosophers (all nationality)
 
-## Data preparation
-
-Authors for which at least one citation is avalailable with wikiquote are stored in file.
-
+More to come...
