@@ -10,7 +10,7 @@ class DefinitionGenerator:
     def __init__(self, dir):
         self.dir = dir
 
-    def find_littre(self):
+    def find_littre(self) -> None:
         # Set littre dictionnary path
         rand_file = random.randint(1, 49)
         file_path = f'{self.dir}/data/littre/{rand_file}_littre.txt'
@@ -32,23 +32,27 @@ class DefinitionGenerator:
         with open(f'{self.dir}/result/def.txt', 'w') as def_res:
             def_res.write(current_def)
 
-    def get_wikiquote(self, scope):
+
+    def _get_wikiquote(self, scope) -> None:
         # Load data
         data = pd.read_csv(
-            f'data/{scope}_catch.csv', 
+            f'data/{scope}_catch.csv',
             dtype={
                'author': 'string',
                'birth': 'string',
                'death': 'string',
-       })
+            }
+        )
 
-        # Subtract 1 to avoid index out of range error
-        rand_index = random.randint(0, len(data) - 1)  
+        # Random integer
+        rand_index = random.randint(0, len(data) - 1)
 
         author = data.loc[rand_index, 'author']
+        birth = False
+        death = False
+        birth_death = False
         if scope == "french_writers":
-            birth = data.loc[rand_index, 'birth']
-            death = data.loc[rand_index, 'death']
+            birth, death = data.loc[rand_index, ['birth', 'death']]
         else:
             birth_death = data.loc[rand_index, 'birth_death']
 
@@ -60,11 +64,9 @@ class DefinitionGenerator:
         quote = quote_list[i]
 
         if scope == "french_writers":
-            if not death:
-                death = " "
+            if not death: death = " "
         else:
-            if not birth_death:
-                birth_death = " "
+            if not birth_death: birth_death = " "
 
         with open(f'{self.dir}/result/def.txt', 'w') as def_res:
             if scope == "french_writers":
@@ -80,16 +82,17 @@ class DefinitionGenerator:
                     f"{author} {birth_death}"
                 )
 
-    def generate_definition_script(self, ascii, con):
+
+    def generate_definition_script(self, ascii:str, con:bool) -> None:
         # Based on luck and if there is a connexion, generate the definition
         # script
         if con:
             luck = random.randint(1, 9)
             if luck <= 3:
-                self.get_wikiquote(scope="french_writers")
+                self._get_wikiquote(scope="french_writers")
                 get_type = "wiki"
             elif 3 < luck <= 6:
-                self.get_wikiquote(scope="philo")
+                self._get_wikiquote(scope="philo")
                 get_type = "wiki"
             else:
                 self.find_littre()
@@ -113,7 +116,8 @@ class DefinitionGenerator:
                     f"cat '{self.dir}/result/def.txt' | cowsay -f {ascii} | lolcat \n"
                 )
 
-    def execute_script(self):
+
+    def execute_script(self) -> None:
         # Add execution to the file
         exe = f"chmod +x {self.dir}/show_def.sh"
         subprocess.run(exe, shell=True)
@@ -127,6 +131,6 @@ def test_connection():
     try:
         request.urlopen('https://google.com', timeout=1)
         return True
-    except request.URLError as err: 
+    except request.URLError:
         return False
 
