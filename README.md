@@ -1,7 +1,3 @@
----
-lang: en
----
-
 # Shell's words
 
 ![](fig/shell_words_vid.gif)
