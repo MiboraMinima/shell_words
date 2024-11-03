@@ -3,9 +3,7 @@
 # Name:         get_def.py
 # Purpose:      Retrieve definition from data/littre.txt and print it to the
 #               terminal at start with a butch of nice cowsay's frogs.
-#
 # Authors:      Antoine Le Doeuff
-#
 # Copyright:    x
 # License:      x
 # ------------------------------------------------------------------------------
